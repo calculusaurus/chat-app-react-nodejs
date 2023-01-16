@@ -44,9 +44,8 @@ io.on("connection", (socket) => {
 
   socket.on("send-msg", (data) => {
     const sendUserSocket = onlineUsers.get(data.to);
-    // add a period to the end of the message:
     if (sendUserSocket) {
-      socket.to(sendUserSocket).emit("msg-recieve", data.msg + ".");
+      socket.to(sendUserSocket).emit("msg-recieve", data.msg ); // PC: socket
     }
   });
 });
