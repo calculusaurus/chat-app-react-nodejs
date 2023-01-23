@@ -34,10 +34,23 @@ export default function ChatContainer({ currentChat, socket }) {
   }, [currentChat]);
 
   const handleSendMsg = async (msg) => {
-    msg = msg + "!";
+    //PC: affects socket, db, and UI
     const data = await JSON.parse(
       localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
     );
+
+    //use external api to check if message passes profanity filter:
+    const profanityCheck = await axios.post(
+      "https://www.purgomalum.com/service/containsprofanity",
+      {
+        text: msg,
+      }
+    );
+    if (profanityCheck.data) {
+      alert("profanity not allowed");
+      return;
+    }
+    
     socket.current.emit("send-msg", {
       to: currentChat._id,
       from: data._id,

@@ -19,11 +19,9 @@ export default function ChatInput({ handleSendMsg }) {
 
   const sendChat = (event) => {
     event.preventDefault();
-    // send msg to external moderation api using webhook before sending to server:
-    // msg = msg + " (sendChat event)";
     if (msg.length > 0) {
       handleSendMsg(msg);
-      setMsg("a");
+      setMsg(""); // clear input
     }
   };
 
