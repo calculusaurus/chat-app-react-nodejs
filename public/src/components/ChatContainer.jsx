@@ -39,17 +39,17 @@ export default function ChatContainer({ currentChat, socket }) {
       localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
     );
 
-    //use external api to check if message passes profanity filter:
-    const profanityCheck = await axios.post(
-      "https://www.purgomalum.com/service/containsprofanity",
-      {
-        text: msg,
-      }
-    );
-    if (profanityCheck.data) {
-      alert("profanity not allowed");
-      return;
-    }
+    // use external api to check if message passes profanity filter:
+    // const profanityCheck = await axios.post(
+    //   "https://www.purgomalum.com/service/containsprofanity",
+    //   {
+    //     text: msg,
+    //   }
+    // );
+    // if (profanityCheck.data) {
+    //   alert("profanity not allowed");
+    //   return;
+    // }
     
     socket.current.emit("send-msg", {
       to: currentChat._id,
