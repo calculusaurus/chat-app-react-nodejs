@@ -23,7 +23,7 @@ export default function ChatInput({ handleSendMsg }) {
     // msg = msg + " (sendChat event)";
     if (msg.length > 0) {
       handleSendMsg(msg);
-      setMsg("");
+      setMsg("a");
     }
   };
 
