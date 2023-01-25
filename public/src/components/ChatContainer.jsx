@@ -40,7 +40,7 @@ export default function ChatContainer({ currentChat, socket }) {
     );
 
     const { checkResponse } = await axios.post(checkMessageRoute, { msg });
-    console.log(checkResponse)
+    console.log('checkResponse: ' + checkResponse)
     
     socket.current.emit("send-msg", {
       to: currentChat._id,

@@ -45,9 +45,18 @@ module.exports.addMessage = async (req, res, next) => {
 module.exports.checkMessage = async (req, res, next) => {
   // use api to check if message passes profanity filter
   const { from, to, message } = req.body;
+  // await axios.post('https://jsonplaceholder.typicode.com/posts', message)
+  //     .then(response => console.log('Response: ' + response.data))
+  //     .catch(error => console.log('Error: ' + error));
+
+  // get response from api, if response is true, then return message  
   await axios.post('https://jsonplaceholder.typicode.com/posts', message)
-      .then(response => console.log(response.data))
-      .catch(error => console.log(error));
-      console.log(response);
-  return data
+      .then(response => {
+        console.log('Response: ' + response.data);
+        return res.json({ msg: response.data });
+      })
+      .catch(error => {
+        console.log('Error: ' + error);
+        return res.json({ msg: error });
+      });
 }
