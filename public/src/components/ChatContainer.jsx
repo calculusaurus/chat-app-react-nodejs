@@ -4,7 +4,7 @@ import ChatInput from "./ChatInput";
 import Logout from "./Logout";
 import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
-import { sendMessageRoute, recieveMessageRoute } from "../utils/APIRoutes";
+import { sendMessageRoute, recieveMessageRoute, checkMessageRoute } from "../utils/APIRoutes";
 
 export default function ChatContainer({ currentChat, socket }) {
   const [messages, setMessages] = useState([]);
@@ -39,17 +39,8 @@ export default function ChatContainer({ currentChat, socket }) {
       localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
     );
 
-    // use external api to check if message passes profanity filter:
-    // const profanityCheck = await axios.post(
-    //   "https://www.purgomalum.com/service/containsprofanity",
-    //   {
-    //     text: msg,
-    //   }
-    // );
-    // if (profanityCheck.data) {
-    //   alert("profanity not allowed");
-    //   return;
-    // }
+    const { checkResponse } = await axios.post(checkMessageRoute, { msg });
+    console.log(checkResponse)
     
     socket.current.emit("send-msg", {
       to: currentChat._id,
