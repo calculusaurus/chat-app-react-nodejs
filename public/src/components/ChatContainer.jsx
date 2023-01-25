@@ -41,7 +41,7 @@ export default function ChatContainer({ currentChat, socket }) {
     
     const checkResponse = await axios.post(checkMessageRoute, msg);
 
-    console.log('checkResponse: ' + checkResponse.data.msg)
+    console.log('checkResponse: ' + checkResponse.data.msg.message)
 
     if (true || checkResponse.data.accepted === true) {
   

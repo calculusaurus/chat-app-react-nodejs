@@ -52,7 +52,7 @@ module.exports.checkMessage = async (req, res, next) => {
 
   // get response from api, if response is true, then return message  
   // https://www.purgomalum.com/service/containsprofanity?text=this%20is%20some%20test%20profanity
-  await axios.post('https://www.purgomalum.com/service/containsprofanity?text=' + message)
+  await axios.post('https://www.purgomalum.com/service/containsprofanity?text=test')
       .then(response => {
         console.log('Response: ' + response.data);
         return res.json({ msg: response.data });
