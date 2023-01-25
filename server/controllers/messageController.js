@@ -1,5 +1,8 @@
 const Messages = require("../models/messageModel");
-import axios from "axios";
+// BAD CODE: (cannot import outside a module)
+// import axios from "axios";
+// INSTEAD:
+const axios = require("axios");
 
 module.exports.getMessages = async (req, res, next) => {
   try {
