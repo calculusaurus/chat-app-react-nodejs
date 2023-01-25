@@ -39,24 +39,29 @@ export default function ChatContainer({ currentChat, socket }) {
       localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
     );
     
-    const response = await axios.post(checkMessageRoute, { msg });
+    const checkResponse = await axios.post(checkMessageRoute, { msg });
 
-    console.log('checkResponse: ' + response)
-    
-    socket.current.emit("send-msg", {
-      to: currentChat._id,
-      from: data._id,
-      msg,
-    });
-    await axios.post(sendMessageRoute, {
-      from: data._id,
-      to: currentChat._id,
-      message: msg,
-    });
+    console.log('checkResponse: ' + checkResponse.data)
 
-    const msgs = [...messages];
-    msgs.push({ fromSelf: true, message: msg });
-    setMessages(msgs);
+    if (checkResponse.data.accepted === true) {
+  
+      socket.current.emit("send-msg", {
+        to: currentChat._id,
+        from: data._id,
+        msg,
+      });
+      await axios.post(sendMessageRoute, {
+        from: data._id,
+        to: currentChat._id,
+        message: msg,
+      });
+
+      const msgs = [...messages];
+      msgs.push({ fromSelf: true, message: msg });
+      setMessages(msgs);
+    } else {
+      console.log('Message not accepted')
+    }  
   };
 
   useEffect(() => {
