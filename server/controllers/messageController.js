@@ -50,7 +50,8 @@ module.exports.checkMessage = async (req, res, next) => {
   //     .catch(error => console.log('Error: ' + error));
 
   // get response from api, if response is true, then return message  
-  await axios.post('https://jsonplaceholder.typicode.com/posts', message)
+  // https://www.purgomalum.com/service/containsprofanity?text=this%20is%20some%20test%20profanity
+  await axios.post('https://www.purgomalum.com/service/containsprofanity?text=' + message)
       .then(response => {
         console.log('Response: ' + response.data);
         return res.json({ msg: response.data });
