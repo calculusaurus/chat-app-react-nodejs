@@ -39,9 +39,9 @@ export default function ChatContainer({ currentChat, socket }) {
       localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
     );
     
-    const checkResponse = await axios.post(checkMessageRoute, { msg });
+    const checkResponse = await axios.post(checkMessageRoute, msg);
 
-    console.log('checkResponse: ' + checkResponse.data)
+    console.log('checkResponse: ' + checkResponse.data.msg)
 
     if (true || checkResponse.data.accepted === true) {
   
