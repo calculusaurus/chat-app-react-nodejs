@@ -45,4 +45,5 @@ module.exports.checkMessage = async (req, res, next) => {
       .then(response => console.log(response.data))
       .catch(error => console.log(error));
   console.log(data);
+  return data
 }
