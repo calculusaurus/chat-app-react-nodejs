@@ -29,6 +29,7 @@ module.exports.getMessages = async (req, res, next) => {
 module.exports.addMessage = async (req, res, next) => {
   try {
     const { from, to, message } = req.body;
+    console.log('Message to db: ' + message);
     const data = await Messages.create({
       message: { text: message }, // PC: database
       users: [from, to],
