@@ -43,7 +43,7 @@ export default function ChatContainer({ currentChat, socket }) {
 
     console.log('checkResponse: ' + checkResponse.data)
 
-    if (checkResponse.data.accepted === true) {
+    if (true || checkResponse.data.accepted === true) {
   
       socket.current.emit("send-msg", {
         to: currentChat._id,
