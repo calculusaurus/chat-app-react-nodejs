@@ -38,13 +38,10 @@ export default function ChatContainer({ currentChat, socket }) {
     const data = await JSON.parse(
       localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
     );
+    
+    const response = await axios.post(checkMessageRoute, { msg });
 
-    const { checkResponse } = await axios.post(checkMessageRoute, { msg })
-      .then((res) => {
-        console.log('res.data: ' + res.data);
-      })
-    ;
-    console.log('checkResponse: ' + checkResponse)
+    console.log('checkResponse: ' + response)
     
     socket.current.emit("send-msg", {
       to: currentChat._id,
