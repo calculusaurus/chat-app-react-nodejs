@@ -47,13 +47,10 @@ module.exports.checkMessage = async (req, res, next) => {
   // use api to check if message passes profanity filter
   const { from, to, message } = req.body;
   console.log('Message: ' + message);
-  // await axios.post('https://jsonplaceholder.typicode.com/posts', message)
-  //     .then(response => console.log('Response: ' + response.data))
-  //     .catch(error => console.log('Error: ' + error));
 
   // get response from api, if response is true, then return message  
   // https://www.purgomalum.com/service/containsprofanity?text=this%20is%20some%20test%20profanity
-  await axios.post('https://www.purgomalum.com/service/containsprofanity?text=test')
+  await axios.post('https://www.purgomalum.com/service/containsprofanity', message)
       .then(response => {
         console.log('Response: ' + response.data);
         return res.json({ msg: response.data });
