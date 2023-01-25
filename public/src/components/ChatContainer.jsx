@@ -65,7 +65,7 @@ export default function ChatContainer({ currentChat, socket }) {
       setMessages(msgs);
     } else {
       console.log('Message not accepted')
-      alert('Harmful message detected. Do better.')      
+      alert('Harmful message "' + msg + '" detected. Do better.')      
     }  
   };
 
