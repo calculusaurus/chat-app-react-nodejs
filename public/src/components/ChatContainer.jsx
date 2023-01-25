@@ -45,9 +45,9 @@ export default function ChatContainer({ currentChat, socket }) {
       message: msg,
     });
 
-    console.log('checkResponse: ' + checkResponse.data.msg.message)
+    console.log('checkResponse: ' + checkResponse.data.msg)
 
-    if (true || checkResponse.data.accepted === true) {
+    if (checkResponse.data.msg === false) {
   
       socket.current.emit("send-msg", {
         to: currentChat._id,
@@ -65,6 +65,7 @@ export default function ChatContainer({ currentChat, socket }) {
       setMessages(msgs);
     } else {
       console.log('Message not accepted')
+      alert('Harmful message detected. Do better.')      
     }  
   };
 
