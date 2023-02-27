@@ -1,5 +1,6 @@
 const User = require("../models/userModel");
 const bcrypt = require("bcrypt");
+const { checkUsernameRoute } = require("../../public/src/utils/APIRoutes");
 
 module.exports.login = async (req, res, next) => {
   try {
@@ -26,6 +27,11 @@ module.exports.register = async (req, res, next) => {
     const emailCheck = await User.findOne({ email });
     if (emailCheck)
       return res.json({ msg: "Email already used", status: false });
+    const { allowCheck } = await axios.post(checkUsernameRoute, {
+        username
+      });
+    if (allowCheck)
+      return res.json({ msg: "Username does not satisfy requirements", status: false });
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = await User.create({
       email,
@@ -37,6 +43,20 @@ module.exports.register = async (req, res, next) => {
   } catch (ex) {
     next(ex);
   }
+};
+
+
+module.exports.checkUsername = async (req, res, next) => {
+    const { username } = req.body;
+    await axios.get('https://www.purgomalum.com/service/containsprofanity?text=' + username)
+        .then(response => {
+          console.log('Response: ' + response.data);
+          return res.json(response.data);
+        })
+        .catch(error => {
+          console.log('Error: ' + error);
+          return res.json({ msg: error });
+        });
 };
 
 module.exports.getAllUsers = async (req, res, next) => {
